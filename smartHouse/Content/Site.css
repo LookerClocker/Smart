@@ -1,0 +1,74 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.morning {
+    background-image: url('../Images/DayTime/morning-lake.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 126vh;
+}
+
+.midday {
+    background-image: url('../Images/DayTime/day.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 126vh;
+}
+
+.evening {
+    background-image: url('../Images/DayTime/sunset.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 126vh;
+}
+
+.midninght {
+    background-image: url('../Images/DayTime/midnight.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 126vh;
+}
+
+.midningh2 {
+    background-image: url('../Images/DayTime/midnight2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 126vh;
+}
+
+.no-container-pading {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.clock-position {
+    position: relative;
+    bottom: 800px;
+}
+
+.absolute-position {
+    position: absolute;
+    z-index: 500;
+}

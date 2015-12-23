@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<script src="~/Scripts/fade-in.js"></script>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>CSS3/jQuery Clock demo</title>
+
+    <script type="text/javascript" src="jquery-1.2.6.min.js"></script>
+    <script src="~/Scripts/smoothie.js"></script>
+
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #clock {
+            /*position: relative;*/
+            width: 600px;
+            height: 600px;
+            margin: 20px auto 0 auto;
+            background-image: url('../../Images/clockface1.png');
+            list-style: none;
+            opacity: 0.8;
+        }
+
+        #sec, #min, #hour {
+            position: absolute;
+            width: 30px;
+            height: 600px;
+            top: 0px;
+            left: 285px;
+        }
+
+        #sec {
+            background-image: url('../../Images/sechand.png');
+            z-index: 3;
+        }
+
+        #min {
+            background-image: url('../../Images/minhand.png');
+            z-index: 2;
+        }
+
+        #hour {
+            background-image: url('../../Images/hourhand.png');
+            z-index: 1;
+        }
+
+        p {
+            text-align: center;
+            padding: 10px 0 0 0;
+        }
+    </style>
+    <script>
+        var smoothie = new SmoothieChart();
+        smoothie.streamTo(document.getElementById("mycanvas"), 1000 /*delay*/);
+
+        var line1 = new TimeSeries();
+        var line2 = new TimeSeries();
+
+        // Add a random value to each line every second
+        setInterval(function () {
+            line1.append(new Date().getTime(), Math.random());
+            line2.append(new Date().getTime(), Math.random());
+        }, 1000);
+
+        // Add to SmoothieChart
+        smoothie.addTimeSeries(line1);
+        smoothie.addTimeSeries(line2);
+
+    </script>
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+
+            setInterval(function () {
+                var seconds = new Date().getSeconds();
+                var sdegree = seconds * 6;
+                var srotate = "rotate(" + sdegree + "deg)";
+
+                $("#sec").css({ "-moz-transform": srotate, "-webkit-transform": srotate });
+
+            }, 1000);
+
+
+            setInterval(function () {
+                var hours = new Date().getHours();
+                var mins = new Date().getMinutes();
+                var hdegree = hours * 30 + (mins / 2);
+                var hrotate = "rotate(" + hdegree + "deg)";
+
+                $("#hour").css({ "-moz-transform": hrotate, "-webkit-transform": hrotate });
+
+            }, 1000);
+
+
+            setInterval(function () {
+                var mins = new Date().getMinutes();
+                var mdegree = mins * 6;
+                var mrotate = "rotate(" + mdegree + "deg)";
+
+                $("#min").css({ "-moz-transform": mrotate, "-webkit-transform": mrotate });
+
+            }, 1000);
+            function Metro() {
+                var q;
+                $.when($(function () {
+                    if ($('#bodyClock').hasClass('evening') == true) {
+                        q = 1;
+                        $('#bodyClock').removeClass('evening');
+                        $('#bodyClock').addClass('midningh2');
+                        $('#bodyClock').fadeIn(5000, function () {
+                            $('#bodyClock').fadeOut(5000);
+                            
+                        })
+                    }
+                    else {
+                        $('#bodyClock').addClass('midningh2');
+                        $('#bodyClock').fadeOut(5000);
+                    }
+                })).then(
+                 $(function () {
+                     if (q == 1) {
+                         var intervalMS = 10000;
+                     }
+                     else {
+                         var intervalMS = 5000;
+                     }
+                   
+                     setTimeout(function () {
+                         $('#bodyClock').removeClass('midningh2');
+                         $('#bodyClock').addClass('morning');
+                         $('#bodyClock').fadeIn(5000, function () {
+                             $('#bodyClock').fadeOut(5000);
+                         })
+                     }, intervalMS);
+                 })).then(
+                 $(function () {
+                     if (q == 1) {
+                         var tenTimeout = 20000;
+                     }
+                     else {
+                         var tenTimeout = 15000;
+                     }
+                     
+                     setTimeout(function () {
+                         $('#bodyClock').removeClass('morning');
+                         $('#bodyClock').addClass('midday');
+                         $('#bodyClock').fadeIn(5000, function () {
+                             $('#bodyClock').fadeOut(5000);
+                         })
+                     }, tenTimeout);
+                 })).then(
+                 $(function () {
+                     if (q == 1) {
+                         var fifteenTimeout = 30000;
+                     }
+                     else {
+                         var fifteenTimeout = 25000;
+                     }
+                     
+                    
+                     setTimeout(function () {
+                         $('#bodyClock').removeClass('midday');
+                         $('#bodyClock').addClass('evening');
+                         $('#bodyClock').fadeIn(5000, function () {
+                             $('#bodyClock').fadeOut(5000, function () {
+                                 $('#bodyClock').addClass('evening');
+                                 Metro();
+                             });
+                            
+                         })
+                     }, fifteenTimeout);
+
+                 }));
+            }
+            Metro();
+
+        });
+
+      
+    </script>
+</head>
+
+<div class="container-fluid no-container-pading">
+    <div class="row">
+        <div class="col-xs-12 no-container-pading">
+            <div>
+                <img class="img-circle absolute-position" src="~/Images/Family/family.jpg" />
+            </div>
+            <div id="bodyClock">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 no-container-pading">
+            <ul id="clock" class="clock-position">
+                <li id="sec"></li>
+                <li id="hour"></li>
+                <li id="min"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <canvas id="mycanvas" width="400" height="100"></canvas>
+    </div>
+</div>
+
+
+
+
